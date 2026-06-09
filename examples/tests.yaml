@@ -1,0 +1,22 @@
+tests:
+  - name: get example returns 200
+    request:
+      method: get
+      url: https://httpbin.org/get
+    expected:
+      status: 200
+
+  - name: post example returns 200
+    request:
+      method: post
+      url: https://httpbin.org/post
+      data: new information
+    expected:
+      status: 200
+
+  - name: delet example returns 200
+    request:
+      method: delete
+      url: https://httpbin.org/delete
+    expected:
+      status: 200
