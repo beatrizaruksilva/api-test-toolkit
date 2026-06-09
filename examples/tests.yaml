@@ -10,11 +10,11 @@ tests:
     request:
       method: post
       url: https://httpbin.org/post
-      data: new information
+      data: { info: "new information" }
     expected:
       status: 200
 
-  - name: delet example returns 200
+  - name: delete example returns 200
     request:
       method: delete
       url: https://httpbin.org/delete
