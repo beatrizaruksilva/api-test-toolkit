@@ -17,6 +17,6 @@ tests:
   - name: delete example returns 200
     request:
       method: delete
-      url: https://httpbin.org/delete
+      url: https://httpbin.org/post
     expected:
       status: 200
