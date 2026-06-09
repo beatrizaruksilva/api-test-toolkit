@@ -11,7 +11,7 @@ def print_report(results: list[TestResult]) -> None:
         linha = f"Teste {result.name} {icone}\n"
 
         if not result.passed:
-            linha += f"  (esperado {r.expected_status}, veio {r.actual_status})"
+            linha += f"  (expected {result.expected_status}, actual {result.actual_status})"
         
         print(linha)
 
