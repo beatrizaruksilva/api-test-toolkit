@@ -29,3 +29,11 @@ class TestCase(BaseModel):
 
 class Suite(BaseModel):
     tests: list[TestCase]
+
+
+class TestResult(BaseModel):
+    name: str
+    passed: bool
+    expected_status: int
+    actual_status: int
+    
