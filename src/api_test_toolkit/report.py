@@ -1,19 +1,25 @@
+from rich.console import Console
+
 from api_test_toolkit.models import TestResult
+
+console = Console()
+
 
 def print_report(results: list[TestResult]) -> None:
     total_passed = 0
     for result in results:
         if result.passed:
-            icone = "✅"
             total_passed += 1
+            console.print(f"[green]PASS[/green] {result.name}")
         else:
-            icone = "❌"
-        linha = f"Teste {result.name} {icone}\n"
+            console.print(f"[red]FAIL[/red] {result.name}")
+            for error in result.errors:
+                console.print(f"   - {error}", style="dim")
 
-        if not result.passed:
-            linha += f"  (expected {result.expected_status}, actual {result.actual_status})"
-        
-        print(linha)
-
-    print("-------------------------------------------------------\n")
-    print(f"Total tested: {len(results)},\nTotal Passed: {total_passed},\nTotal Failed: {len(results)-total_passed}\n")
+    total = len(results)
+    console.print("-" * 55)
+    console.print(
+        f"Total: {total}  |  "
+        f"[green]Passed: {total_passed}[/green]  |  "
+        f"[red]Failed: {total - total_passed}[/red]"
+    )

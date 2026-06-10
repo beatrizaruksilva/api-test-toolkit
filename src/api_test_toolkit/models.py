@@ -7,12 +7,14 @@ TestCase -> test = name + request + expected
 Suite -> the whole file
 """
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Any
 
 
 class Expected(BaseModel):
-    status: int
+    status: int | None = None                          # optional
+    json_body: dict | None = Field(default=None, alias="json")  # YAML usa "json", Python usa "json_body"
+    max_time_ms: int | None = None                     # max time for response
 
 
 class Request(BaseModel):
@@ -33,7 +35,8 @@ class Suite(BaseModel):
 
 class TestResult(BaseModel):
     name: str
-    passed: bool
-    expected_status: int
-    actual_status: int
-    
+    errors: list[str] = []       # define assertion failed
+
+    @property
+    def passed(self) -> bool:
+        return len(self.errors) == 0
